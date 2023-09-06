@@ -1,12 +1,13 @@
 {
-  "name": "cliter-sync",
+  "name": "@alexander-romero/cliter-sync",
   "version": "1.0.0",
   "description": "Node package for synchronize the cliter directory on an Aurora app",
   "main": "dist/index.js",
   "type": "commonjs",
   "scripts": {
     "test": "test",
-    "build": "tsc"
+    "build": "tsc",
+    "sync": "dist/inde.js"
   },
   "repository": {
     "type": "git",
