@@ -23,15 +23,28 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs = __importStar(require("fs"));
-const cliter = 'cliter';
+const fs = __importStar(require("fs-extra"));
+const cliterFolder = 'cliter';
+const backFolder = './library-back';
+const frontFolder = '../library-front';
 function cliterExists() {
-    if (fs.existsSync(cliter)) {
-        console.log(`${cliter} directory exists`);
-    }
-    else {
-        console.log(`${cliter} directory does not exists`);
+    if (!fs.existsSync(cliterFolder)) {
+        console.log(`${cliterFolder} directory does not exists`);
     }
 }
-cliterExists();
+async function copyCliter() {
+    fs.copy(cliterFolder, `${frontFolder}/cliter`, (err) => {
+        if (err) {
+            console.error('Error al copiar el directorio:', err);
+        }
+        else {
+            console.log('Directorio copiado con éxito.');
+        }
+    });
+}
+function syncCliter() {
+    cliterExists();
+    copyCliter();
+}
+syncCliter();
 //# sourceMappingURL=index.js.map
