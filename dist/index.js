@@ -24,27 +24,51 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs-extra"));
+const readline = __importStar(require("readline"));
 const cliterFolder = 'cliter';
-const backFolder = './library-back';
-const frontFolder = '../library-front';
+//TAKE INPUT FROM USER
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+//CHECK IF CLITER FOLDER EXIST
 function cliterExists() {
     if (!fs.existsSync(cliterFolder)) {
-        console.log(`${cliterFolder} directory does not exists`);
+        console.log(`${cliterFolder} directory does not exist here!`);
     }
 }
-async function copyCliter() {
-    fs.copy(cliterFolder, `${frontFolder}/cliter`, (err) => {
+//CHECK IF DESTINATION FOLDER EXIST
+const destinationExists = (destinationFolder) => {
+    if (!fs.existsSync(destinationFolder)) {
+        console.log(`${destinationFolder} directory does not exist here!`);
+        return false;
+    }
+    return true;
+};
+//COPY CLITER FOLDER
+async function copyCliter(destinationFolder) {
+    fs.copy(cliterFolder, `${destinationFolder}/cliter`, (err) => {
         if (err) {
-            console.error('Error al copiar el directorio:', err);
+            console.error(`Error when copyng into ${destinationFolder}:`, err);
         }
         else {
-            console.log('Directorio copiado con éxito.');
+            console.log('Directory succesfully copied.');
         }
     });
 }
+//INITIALIZE COPYNG CLITER
 function syncCliter() {
     cliterExists();
-    copyCliter();
+    rl.question('Select the destination folder (e.g., ../boundedContext-front): ', (answer) => {
+        if (destinationExists(answer.trim()) === true) {
+            console.log(destinationExists);
+            copyCliter(answer.trim());
+            rl.close();
+        }
+        else {
+            syncCliter();
+        }
+    });
 }
 syncCliter();
 //# sourceMappingURL=index.js.map
