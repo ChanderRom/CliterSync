@@ -1,5 +1,5 @@
 {
-  "name": "@alexander-romero/cliter-sync",
+  "name": "cliter-sync",
   "version": "1.0.1",
   "description": "Node package for synchronize the cliter directory on an Aurora app",
   "main": "dist/index.js",
